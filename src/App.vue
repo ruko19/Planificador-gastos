@@ -1,7 +1,7 @@
 
 <script setup>
 
-import Presopuesto from './components/Presopuesto.vue';
+import Presopuesto from './components/Presupuesto.vue';
 
 
 </script>
@@ -29,7 +29,7 @@ import Presopuesto from './components/Presopuesto.vue';
   :root {
     --azul: #3282f6;
     --blanco: #fff;
-    --gris-claro: : #F5F5F5
+    --gris-claro: : #f5f5f5
     --gris: #94a3b8;
     --gris-oscuro: #64748b
     --negro: #000;
@@ -78,10 +78,17 @@ header h1 {
 }
 
 .contenedor-header {
+  margin-top: -5rem;
+  transform: translateY(5rem);
+  padding: 5rem;
 
 }
 
 .sombra {
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+  background-color: var(--blanco);
+  border-radius: 1.2rem;
+  padding: 5rem;
 
 }
 
