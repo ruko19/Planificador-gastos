@@ -1,14 +1,44 @@
 
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import Presopuesto from './components/Presupuesto.vue';
+import ControPresupuesto from './components/ControPresupuesto.vue';
+import Modal from './components/Modal.vue';
+import iconoNuevoGasto from './assets/img/nuevo-gasto.svg'
+
+
+const modal = reactive({
+  mostrar: false,
+  animar: false
+})
 
 const presupuesto = ref(0)
+const disponible = ref(0)
+
 
 const definirPresupuesto = (cantidad) => {
   presupuesto.value = cantidad
+  disponible.value = cantidad
 }
 
+const mostrarModal = () => {
+ Object.assign(modal, {mostrar: true, animar: true});
+
+}
+const ocultarModal = () => {
+ Object.assign(modal, {mostrar: false, animar:false})
+
+  console.log('ocultar las nalgas');
+  console.log(modal.mostrar);
+  
+
+
+}
+
+
+const resetearApp = () => {
+  presupuesto.value = 0
+}
 
 </script>
 
@@ -22,12 +52,35 @@ const definirPresupuesto = (cantidad) => {
         <Presopuesto
         v-if="presupuesto === 0"
         @definir-presupuesto="definirPresupuesto"
+
   
         />
-        <p v-else>Presupuestro Valido</p>
+        <ControPresupuesto 
+          v-else
+          @resetear-app="resetearApp"
+          :presupuesto="presupuesto"
+          :disponible="disponible"
+        />
 
       </div>
     </header>
+
+    <main v-if="presupuesto > 0" >
+
+
+
+      <div class="crear-gasto">
+
+        <img :src="iconoNuevoGasto" alt="icono nuevo gasto" @click="mostrarModal">
+
+      </div>
+
+      <Modal 
+        v-if="modal.mostrar" 
+        @ocultar-modal="ocultarModal"
+        
+      />
+    </main>
 
     
    
@@ -38,9 +91,9 @@ const definirPresupuesto = (cantidad) => {
   :root {
     --azul: #3282f6;
     --blanco: #fff;
-    --gris-claro: : #f5f5f5
+    --gris-claro:  #f5f5f5;
     --gris: #94a3b8;
-    --gris-oscuro: #64748b
+    --gris-oscuro: #64748b;
     --negro: #000;
   }
   html {
@@ -98,6 +151,24 @@ header h1 {
   background-color: var(--blanco);
   border-radius: 1.2rem;
   padding: 5rem;
+
+}
+
+.crear-gasto{
+  position: fixed;
+  bottom: 5rem;
+  right: 5rem;
+
+}
+
+.crear-gasto img {
+  width: 5rem;
+}
+
+
+.crear-gasto img:hover {
+
+  cursor: pointer;
 
 }
 
